@@ -6,6 +6,9 @@ To deploy the first resources I went with a powershell command on azure cli, sim
 
 Template used:
 
+
+**Note**: Declared Variables can and should be changed for your liking.
+
 ### Powershell
 ```powershell
 # Declare variables
@@ -35,6 +38,43 @@ $OutputObject = [PSCustomObject]@{
 }
 
 $OutputObject | ConvertTo-Json
-
 ```
-The output of this is all the information we need to move forward with the terraform code.
+- The output of this is all the information we need to move forward with the terraform code.
+
+After creating the resource group, storage account and terraform container for storing terraform state we move forward to create the service principal. Service principal is necessary since it is going to be the user created to use to create resources using terraform.
+ 
+### Powershell
+```powershell
+## Declare variables
+$ServicePrincipalName = "anyname-terraform-sp"
+$AzSubscriptionName = "name of Azure subscription"
+$endDate = "10/10/2024"
+
+New-AzADServicePrincipal -DisplayName $ServicePrincipalName
+
+Connect-AzureAD
+
+$Subscription = (Get-AzSubscription -SubscriptionName $AzSubscriptionName)
+$ServicePrincipal = Get-AzADServicePrincipal -DisplayName $ServicePrincipalName
+$AzureADApplication = Get-AzureADApplication -SearchString $ServicePrincipalName
+$clientSecret = New-AzureADApplicationPasswordCredential -ObjectID $AzureADApplication.ObjectId -EndDate $endDate
+
+$OutputObject = [PSCustomObject]@{
+    clientId = $ServicePrincipal.AppId
+    subscriptionId = $Subscription.Id
+    clientsecret = $clientSecret.value
+    tenantId = $Subscription.TenantId
+}
+
+$OutputObject | ConvertTo-Json
+```
+
+Last thing to do manually on the shell is to assign a proper role to the Service principal, in this case we would like to provide it with Contributor role.
+
+### Powershell
+
+```PowerShell
+## Declare variables
+$ServicePrincipalName = "anyname-terraform-sp"
+New-AzRoleAssignment -ObjectId $servicePrincipal.id -RoleDefinitionName "Contributor"
+```
