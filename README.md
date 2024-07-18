@@ -1,6 +1,10 @@
 # warehouse_pipelines_handling
 Deployment of a warehouse data warehouse infrastructure on azure with data pipelines to fetch a sql database
 
+v0.1 of possible architecture:
+
+![deployment architecture](https://github.com/zhawi/warehouse_pipelines_handling/blob/feature/infrastructure_code/files/airflow_project.png)
+
 ## Deployment of azure initial resources
 To deploy the first resources I went with a powershell command on azure cli, simply because the goal here is to practice github branches, data engineering skills related to pandas and software development skills. Therefore this initial step was done with a powershell code. The main goal is to create a resource group and a storage account to be able to store terraform state file.
 
