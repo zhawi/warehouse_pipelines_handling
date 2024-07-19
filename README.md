@@ -1,11 +1,11 @@
-# warehouse_pipelines_handling
-Deployment of a warehouse data warehouse infrastructure on azure with data pipelines to fetch a sql database
+# Data pipeline handling
+Deployment of different infrastructure needed to deploy different data pipelines to a data warehouse infrastructure on azure, use of github actions to develop and automate deployment.
 
 v0.1 of possible architecture:
 
 ![deployment architecture](https://github.com/zhawi/warehouse_pipelines_handling/blob/feature/infrastructure_code/files/airflow_project.png)
 
-## Deployment of azure initial resources
+## 1 - Deployment of azure initial resources
 To deploy the first resources I went with a powershell command on azure cli, simply because the goal here is to practice github branches, data engineering skills related to pandas and software development skills. Therefore this initial step was done with a powershell code. The main goal is to create a resource group and a storage account to be able to store terraform state file.
 
 Template used:
@@ -82,3 +82,8 @@ Last thing to do manually on the shell is to assign a proper role to the Service
 $ServicePrincipalName = "anyname-terraform-sp"
 New-AzRoleAssignment -ObjectId $servicePrincipal.id -RoleDefinitionName "Contributor"
 ```
+
+## 2 - Creation of github actions 
+
+For my first CI/CD pipeline I will focus on deploying terraform on a self-hosted runner machine.\
+Follow the following [setup self-host runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) where you will learn to setup a self-host or just run a general one following any github action marketplace configuration.
