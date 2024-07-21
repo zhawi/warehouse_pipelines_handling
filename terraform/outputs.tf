@@ -1,3 +1,3 @@
-output "hello_world_file" {
-  value = local_file.hello_world.filename
+output "storage_account_name" {
+  value = module.storage.storage_account_name
 }
