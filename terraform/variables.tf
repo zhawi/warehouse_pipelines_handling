@@ -3,8 +3,8 @@
 ##
 
 variable "location" {
-    type = string
-    default = "west europe"
+  type    = string
+  default = "west europe"
 }
 
 variable "naming_prefix" {
