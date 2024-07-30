@@ -12,6 +12,7 @@ variable "location" {
 
 variable "subnet_id" {
   description = "ID of the subnet"
+  sensitive = true
 }
 
 variable "tag_environment" {

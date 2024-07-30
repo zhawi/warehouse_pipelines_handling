@@ -16,6 +16,7 @@ variable "nsg_name" {
 
 variable "allowed_ip" {
   description = "IP address allowed to SSH"
+  sensitive = true
 }
 
 variable "tag_environment" {

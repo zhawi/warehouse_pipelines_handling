@@ -12,6 +12,7 @@ resource "azurerm_storage_account" "main" {
   network_rules {
     virtual_network_subnet_ids = [var.subnet_id]
     default_action = var.default_action
+    bypass                     = ["AzureServices"]
   }
 
   tags = {

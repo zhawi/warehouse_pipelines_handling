@@ -24,6 +24,7 @@ variable "tag_owner" {
 
 variable "my_ip_address" {
   description = "IP address allowed to SSH"
+  sensitive = true
 }
 
 variable "default_action" {
