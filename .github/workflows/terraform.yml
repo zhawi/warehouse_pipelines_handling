@@ -10,7 +10,7 @@ permissions:
 jobs:
     terraform:
         name: 'Terraform'
-        runs-on: ['self-hosted', 'macOS', 'X64']
+        runs-on: ['self-hosted', 'macOS', 'ARM64']
         environment: development
 
         # Use the Bash shell
